@@ -94,6 +94,20 @@ class ObjectStore(_ObjectStore):
         return super().get(_as_path(location))
 
     @override
+    def get_range(self, location: PathLike, start: int, length: int) -> bytes:
+        """Return the bytes that are stored at the specified location in the given byte range.
+
+        Args:
+            location (PathLike): path / key to storage location
+            start (int): zero-based start index
+            length (int): length of the byte range
+
+        Returns:
+            bytes: raw data range stored in location
+        """
+        return super().get_range(_as_path(location), start, length)
+
+    @override
     async def get_range_async(self, location: PathLike, start: int, length: int) -> bytes:
         """Return the bytes that are stored at the specified location in the given byte range.
 
