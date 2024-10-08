@@ -141,10 +141,10 @@ class ClientOptions:
 
 class BytesStream:
     def __aiter__(self) -> BytesStream:
-        """todo"""
+        """Return `Self` as an async iterator."""
 
     async def __anext__(self) -> bytes:
-        """todo"""
+        """Return the next chunk of bytes in the stream."""
 
 class ObjectStore:
     """A uniform API for interacting with object storage services and local files."""
@@ -165,7 +165,7 @@ class ObjectStore:
         """Return the bytes that are stored at the specified location in the given byte range."""
 
     def stream(self, location: Path) -> BytesStream:
-        """todo"""
+        """Return a chunked stream over the bytes that are stored at the specified location."""
 
     def put(self, location: Path, bytes: bytes) -> None:
         """Save the provided bytes to the specified location."""

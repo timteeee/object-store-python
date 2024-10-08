@@ -124,6 +124,15 @@ class ObjectStore(_ObjectStore):
 
     @override
     def stream(self, location: PathLike) -> BytesStream:
+        """Return a chunked stream over the bytes that are stored at the specified location.
+
+        Args:
+            location (PathLike): path / key to storage location
+
+        Returns:
+            BytesStream: an async iterator that returns the next chunk in the stream with each
+                iteration
+        """
         return super().stream(_as_path(location))
 
     @override
