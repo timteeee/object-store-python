@@ -187,3 +187,21 @@ async def test_rename_and_copy_async(object_store: tuple[ObjectStore, Path]):
         _ = await store.get_async(path1)
 
     await store.delete_async(path2)
+
+
+@pytest.mark.asyncio
+async def test_stream(object_store: tuple[ObjectStore, Path]):
+    store, _ = object_store
+
+    data = b"the quick brown fox jumps over the lazy dog," * 5000
+    path = "big-data.txt"
+
+    await store.put_async(path, data)
+
+    pos = 0
+    async for chunk in store.stream(path):
+        size = len(chunk)
+        assert chunk == data[pos : pos + size]
+        pos += size
+
+    assert pos == len(data)
