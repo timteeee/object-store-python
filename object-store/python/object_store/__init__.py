@@ -8,6 +8,7 @@ from ._internal import ListResult as ListResult
 from ._internal import ObjectMeta as ObjectMeta
 from ._internal import ObjectStore as _ObjectStore
 from ._internal import Path as Path
+from ._internal import BytesStream
 
 try:
     import importlib.metadata as importlib_metadata
@@ -120,6 +121,10 @@ class ObjectStore(_ObjectStore):
             bytes: raw data range stored in location
         """
         return await super().get_range_async(_as_path(location), start, length)
+
+    @override
+    def stream(self, location: PathLike) -> BytesStream:
+        return super().stream(_as_path(location))
 
     @override
     def put(self, location: PathLike, bytes: BytesLike) -> None:
